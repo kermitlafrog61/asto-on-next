@@ -10,6 +10,7 @@ let items: Array<{
   name: string;
   description: string;
   imageUrl: string;
+  imageUrls?: string[];
 }> = [
   {
     id: "1",

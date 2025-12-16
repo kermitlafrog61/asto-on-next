@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
           .png()
           .toBuffer();
 
-        return new NextResponse(buffer, {
+        return new NextResponse(buffer as unknown as BodyInit, {
           headers: {
             "Content-Type": "image/png",
             "Content-Disposition": `attachment; filename="${upload.name.replace(/[^a-z0-9]/gi, '_')}_${upload.id}.png"`,
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
       } else {
         const fileBuffer = readFileSync(filepath);
         const ext = upload.imageUrl.split(".").pop();
-        return new NextResponse(fileBuffer, {
+        return new NextResponse(fileBuffer as unknown as BodyInit, {
           headers: {
             "Content-Type": `image/${ext}`,
             "Content-Disposition": `attachment; filename="${upload.name.replace(/[^a-z0-9]/gi, '_')}_${upload.id}.${ext}"`,
@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
       const output = createWriteStream(zipPath);
       const archive = archiver("zip", { zlib: { level: 9 } });
 
-      return new Promise((resolve, reject) => {
+      return new Promise<NextResponse>((resolve, reject) => {
         archive.pipe(output);
 
         const fs = require("fs");
@@ -182,7 +182,7 @@ export async function POST(request: NextRequest) {
             rmSync(tempDir, { recursive: true, force: true });
 
             resolve(
-              new NextResponse(zipBuffer, {
+              new NextResponse(zipBuffer as unknown as BodyInit, {
                 headers: {
                   "Content-Type": "application/zip",
                   "Content-Disposition": "attachment; filename=astroclub_uploads.zip",

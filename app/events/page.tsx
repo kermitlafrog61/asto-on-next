@@ -49,7 +49,7 @@ export default function EventsPage() {
   const handleRegister = (event: Event) => {
     setSelectedEvent(event);
     setShowForm(true);
-    setFormData({ name: "", email: "" });
+    setFormData({ name: "", phone: "" });
     setMessage(null);
   };
 
@@ -100,7 +100,7 @@ export default function EventsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white flex items-center justify-center">
         <p className="text-xl">Loading events...</p>
       </div>
     );
