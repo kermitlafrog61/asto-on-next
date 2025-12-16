@@ -1,14 +1,17 @@
+import { existsSync, unlinkSync } from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import { join } from "path";
-import { existsSync, unlinkSync } from "fs";
 
 const dataFile = join(process.cwd(), "data", "uploads.json");
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> | { id: string } }
 ) {
   try {
+    const params = context.params;
+    const id = params instanceof Promise ? (await params).id : params.id;
+
     let uploads: Array<{
       id: string;
       name: string;
@@ -22,7 +25,7 @@ export async function DELETE(
       uploads = JSON.parse(data);
     }
 
-    const upload = uploads.find((u) => u.id === params.id);
+    const upload = uploads.find((u) => u.id === id);
     if (!upload) {
       return NextResponse.json({ error: "Upload not found" }, { status: 404 });
     }
@@ -34,7 +37,7 @@ export async function DELETE(
     }
 
     // Remove from array
-    uploads = uploads.filter((u) => u.id !== params.id);
+    uploads = uploads.filter((u) => u.id !== id);
 
     // Save updated uploads
     const fs = require("fs");
