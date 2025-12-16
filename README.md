@@ -1,4 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AstroClub KIMEP
+
+A web application for the AstroClub on KIMEP featuring image uploads, event registration, merchandise, and an admin panel.
+
+## Features
+
+- **Main Page**: Welcome page with AstroClub branding and navigation
+- **Image Upload**: Upload astrophotography images with your name (shows who uploaded each image)
+- **Event Registration**: Register for multiple astronomy events
+- **Merchandise**: Browse and view AstroClub merchandise
+- **Admin Panel**: Full management system (accessible only via URL `/admin`)
+  - Manage uploads: view, delete, bulk operations, download with optional name overlay, zip downloads
+  - Manage events: create, edit, delete events
+  - View registrations
+  - Manage merchandise: add, edit, delete items, upload photos
+
+## Setup
+
+1. Install dependencies:
+```bash
+pnpm install
+```
+
+2. Create a `.env.local` file in the root directory:
+```env
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=your_secure_password
+```
+
+3. Run the development server:
 
 ## Getting Started
 
